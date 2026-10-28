@@ -1,0 +1,110 @@
+create table employeee(employeee_id int auto_increment primary key,first_name varchar(50),last_name varchar(50),Salary int,joining_date date,Department varchar(50));
+
+create  table reward(employeee_ref_id int,date_reward date,amount int,foreign key(employeee_ref_id)references employeee(employeee_id));
+
+insert into employeee(employeee_id,first_name,last_name,salary,joining_date,Department)
+values(1,'Bob','Kinto',1000000,'2019-01-20','Finance'),
+(2,'Jerry','Kanxo',6000000,'2019-01-15','IT'),
+(3,'philip','Jose',8900000,'2019-02-05','Banking'),
+(4,'John','Abraham',2000000,'2019-02-25','Insurance'),
+(5,'Michael','Mathew',2200000,'2019-02-28','Finance'),
+(6,'Alex','Chreketo',4000000,'2019-05-10','IT'),
+(7,'Yohan','Soso',1230000,'2019-06-20','Banking');
+
+insert into reward(employeee_ref_id,Date_reward,Amount)
+values(1,'2019-05-11','1000'),
+(2,'2019-02-15','5000'),
+(3,'2019-04-22','2000'),
+(1,'2019-06-20','8000');
+
+#Q1
+select first_name,length(first_name)as name_length from employeee;
+
+#Q2
+select first_name,replace(first_name,'o','#')as new_name from employeee;
+
+#Q3
+select concat(first_name,'_',last_name)as full_name from employeee;
+
+#Q4
+select joining_date,year(joining_date)as year,month(joining_date)as month,day(joining_date)as day from employeee;
+
+#Q5
+select*from employeee order by first_name asc;
+
+#Q6
+select*from employeee order by first_name desc;
+
+#Q7
+select*from employeee order by first_name asc,salary desc;
+
+#Q8
+select*from employeee where first_name='Bob';
+
+#Q9
+select*from employeee where first_name in('Bob','Alex');
+
+#Q10
+select*from employeee where first_name not in('Bob','Alex');
+
+#Q11
+select*from employeee where first_name like 'B%';
+
+#Q12
+select*from employeee  where first_name like '%o%';
+
+#Q13
+select*from employeee where first_name like '%n';
+
+#Q14
+select*from employeee where first_name like '___n';
+
+#Q15
+select*from employeee where first_name like 'j___';
+
+#Q16
+select*from employeee where salary>3000000;
+
+#Q17
+select*from employeee where salary<3000000;
+
+#Q18
+select*from employeee where salary between 2000000 and 5000000;
+
+#Q19
+select*from employeee where first_name in('Bob','Alex');
+
+#Q20
+select*from employeee where year(joining_date)=2019;
+
+#Q21
+select*from employeee where month(joining_date)=1;
+
+#Q22
+select*from employeee where joining_date<'2019-03-31';
+
+#Q23
+select*from employeee where joining_date>'2019-03-31';
+
+#Q24
+
+#Q25
+
+
+#Q26
+select employeee.first_name,datediff(reward.date_reward,employeee.joining_date)
+as date_difference from employeee
+join reward
+on employeee.employeee_id=reward.employeee_ref_id;
+
+#Q27
+select now();
+
+#Q28
+select first_name from employeee where first_name like '%\%%';
+
+#Q29
+select replace(last_name,'_',' ')as last_name from employeee;
+
+#Q30
+select department,sum(salary)as  total_salary from employeee group by department;
